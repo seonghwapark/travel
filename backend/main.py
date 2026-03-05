@@ -153,11 +153,36 @@ def kayak_url(origin, destination, departure_date, return_date=None,
     return f"https://www.kayak.co.kr{path}{params}"
 
 
+_AIRPORT_TO_CITY = {
+    "ICN": "SEL", "GMP": "SEL",
+    "NRT": "TYO", "HND": "TYO",
+    "KIX": "OSA", "ITM": "OSA",
+    "FUK": "FUK",
+    "BKK": "BKK", "DMK": "BKK",
+    "SIN": "SIN",
+    "HKG": "HKG",
+    "TPE": "TPE", "TSA": "TPE",
+    "HAN": "HAN", "SGN": "SGN", "DAD": "DAD",
+    "MNL": "MNL", "CEB": "CEB",
+    "KUL": "KUL",
+    "DPS": "DPS",
+    "GUM": "GUM",
+    "LAX": "LAX", "SFO": "SFO", "JFK": "NYC", "EWR": "NYC",
+    "LHR": "LON", "LGW": "LON", "STN": "LON",
+    "CDG": "PAR", "ORY": "PAR",
+    "FCO": "ROM", "BCN": "BCN",
+    "SYD": "SYD", "PEK": "BJS", "PKX": "BJS",
+    "PVG": "SHA", "SHA": "SHA",
+    "CNX": "CNX", "PNH": "PNH", "REP": "REP",
+}
+
 def trip_com_url(origin, destination, departure_date, return_date=None,
                  adults=1, children=0, infants=0):
     """Trip.com 항공권 검색 URL"""
     cabin = "Y"  # economy
-    base = f"https://kr.trip.com/flights/{origin.lower()}-to-{destination.lower()}/tickets-{origin.lower()}-{destination.lower()}?dcity={origin}&acity={destination}&ddate={departure_date}&flighttype="
+    o_city = _AIRPORT_TO_CITY.get(origin.upper(), origin)
+    d_city = _AIRPORT_TO_CITY.get(destination.upper(), destination)
+    base = f"https://kr.trip.com/flights/{o_city.lower()}-to-{d_city.lower()}/tickets-{o_city}-{d_city}?dcity={o_city}&acity={d_city}&ddate={departure_date}&flighttype="
     if return_date:
         base += f"RT&rdate={return_date}"
     else:
