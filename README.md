@@ -1,4 +1,4 @@
-# ✈️ flight-search
+# ✈️ travel
 
 국내선 항공편 통합 검색 웹앱. 여러 항공사 일정을 한 화면에서 비교할 수 있다.
 
@@ -31,7 +31,7 @@ start.bat
 ## 프로젝트 구조
 
 ```
-flight-search/
+travel/
 ├── frontend/       # React 앱
 ├── backend/        # FastAPI 서버
 └── start.bat       # 통합 실행 스크립트
